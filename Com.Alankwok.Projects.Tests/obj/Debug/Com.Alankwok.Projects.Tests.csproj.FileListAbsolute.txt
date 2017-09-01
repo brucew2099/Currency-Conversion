@@ -1,0 +1,9 @@
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.csprojResolveAssemblyReference.cache
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.Alankwok.Projects.Tests.dll
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.Alankwok.Projects.Tests.pdb
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.AlanKwok.Projects.Currency.exe
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\nunit.framework.dll
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.AlanKwok.Projects.Currency.pdb
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\nunit.framework.xml
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.dll
+\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.pdb
