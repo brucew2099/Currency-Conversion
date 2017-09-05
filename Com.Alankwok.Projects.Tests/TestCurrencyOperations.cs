@@ -66,6 +66,12 @@ namespace Com.Alankwok.Projects.Tests
         }
 
         [Test]
+        public void TestConvertLengthModThreeZeroBeforeDecimal()
+        {
+            Assert.AreEqual(currency.Convert(476982.32M), "Four Hundred Seventy Six Thousand Nine Hundred Eighty Two Dollars and Thirty Two Cents");
+        }
+
+        [Test]
         public void TestConverNoNumber()
         {
             // Test No Number

@@ -7,3 +7,12 @@
 \\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\nunit.framework.xml
 \\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.dll
 \\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.pdb
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.Alankwok.Projects.Tests.dll
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.Alankwok.Projects.Tests.pdb
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.AlanKwok.Projects.Currency.exe
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\nunit.framework.dll
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\Com.AlanKwok.Projects.Currency.pdb
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\bin\Debug\nunit.framework.xml
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.dll
+\\Mac\Home\Documents\GitHub\AlanCodingKata\Com.Alankwok.Projects.Tests\obj\Debug\Com.Alankwok.Projects.Tests.pdb

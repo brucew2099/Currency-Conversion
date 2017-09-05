@@ -25,7 +25,7 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                 "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
             };
 
-            tysArray = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Sevenyt", "Eighty", "Ninty" };
+            tysArray = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty" };
             unitsArray = new string[] { "", "Thousand", "Million", "Billion" };
         }
 
@@ -51,7 +51,7 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             var remains = Int32.Parse(beforeDecimal);
 
             var numberOfThousands = (int) beforeDecimal.Length / 4;
-            var numberOfBelowThousands = numberOfThousands > 0 ? (int) beforeDecimal.Length % 3 : (int)beforeDecimal.Length % 4;
+            var numberOfBelowThousands = beforeDecimal.Length % 4 == 0 ? (int) beforeDecimal.Length % 3 : (int)beforeDecimal.Length % 4;
 
 
             // Take care of the digits before any thousand counts
