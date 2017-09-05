@@ -51,7 +51,7 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             var remains = Int32.Parse(beforeDecimal);
 
             var numberOfThousands = (int) beforeDecimal.Length / 4;
-            var numberOfBelowThousands = (int) beforeDecimal.Length % 4;
+            var numberOfBelowThousands = numberOfThousands > 0 ? (int) beforeDecimal.Length % 3 : (int)beforeDecimal.Length % 4;
 
 
             // Take care of the digits before any thousand counts
@@ -84,11 +84,11 @@ namespace Com.AlanKwok.Projects.Currency.Classes
 
             };
 
-            wordAmount = wordAmount.Trim() != string.Empty ? wordAmount += "Dollars and " : String.Empty;
+            wordAmount = wordAmount.Trim() != string.Empty ? wordAmount += " Dollars and " : String.Empty;
 
             wordAmount += ProcessAfterDecimal(afterDecimal);
 
-            return wordAmount.Trim();
+            return Regex.Replace(wordAmount, @"\s+", " ").Trim();
         }
 
         public string Convert(int numbers)
@@ -137,6 +137,8 @@ namespace Com.AlanKwok.Projects.Currency.Classes
         {
             var value = (int)(remains / Math.Pow(10, 3 * numberOfThousands + 1 - level));
 
+            var isEndOfNumber = true;
+
             if (value > 0)
             {
                 switch (level)
@@ -145,22 +147,31 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                     {
                         if (wordAmount.Trim() == string.Empty)
                         {
-                            wordAmount += zerosAndOnesArray[value] + " " + unitsArray[numberOfThousands] + " ";
+                            wordAmount += " "  + zerosAndOnesArray[value] + " " + unitsArray[numberOfThousands] + " ";
                         }
                         
                         break;
                     }
                     case 2:
                     {
-                        wordAmount += zerosAndOnesArray[value] + " Hundred";
+                        wordAmount += " " + zerosAndOnesArray[value] + " Hundred";
                         break;
                     }
                     case 3:
                     {
                         if (value > 1)
                         {
-                            wordAmount += " " + tysArray[value - 2];
-                            wordAmount += " " + zerosAndOnesArray[value - 1] + " ";
+                            wordAmount += " " + tysArray[value - 2] + " ";
+                            if (Int32.Parse(remains.ToString()[1].ToString()) > 0)
+                            {
+                                wordAmount += " " + zerosAndOnesArray[Int32.Parse(remains.ToString()[1].ToString())] + " ";
+                                wordAmount += unitsArray[numberOfThousands - 1] + " ";
+                            }
+
+                            if (remains.ToString().Length > 2)
+                            {
+                                isEndOfNumber = false;
+                            }
                         }
                         else
                         {
@@ -176,7 +187,14 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                 }
             }
 
-            remains = (int)(remains % Math.Pow(10, 3 * numberOfThousands + 1 - level));
+            if (isEndOfNumber)
+            {
+                remains = (int)(remains % Math.Pow(10, 3 * numberOfThousands + 1 - level));
+            }
+            else
+            {
+                remains = (int)(remains % Math.Pow(10, 3 * numberOfThousands - level));
+            }
 
             return new Result()
             {

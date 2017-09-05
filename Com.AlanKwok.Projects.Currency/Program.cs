@@ -13,7 +13,13 @@ namespace Com.AlanKwok.Projects.Currency
         {
             CurrencyOperations currency = new CurrencyOperations();
 
-            Console.WriteLine(currency.Convert(32760436.29M));
+            Console.WriteLine("Please enter a decimal number");
+
+            var inputNumber = Console.ReadLine();
+
+            Console.WriteLine(currency.Convert(decimal.Parse(inputNumber)));
+
+            Console.ReadLine();
         }
     }
 }

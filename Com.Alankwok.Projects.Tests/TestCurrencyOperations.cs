@@ -44,22 +44,25 @@ namespace Com.Alankwok.Projects.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => currency.Convert(10000));
         }
 
-        //
-        // This test failed. I didn't have time to debug it further.
-        // [AKK - 09.01.2017]
-        //
-        //[Test]
-        //public void TestConvertLargeNumbers()
-        //{
-        //    // Test regular number
-        //    Assert.AreEqual(currency.Convert(32760436.29M), "Thirty Two Million Seven Hundred Sixty Thousand Four Hundred Thirty Six and Twenty Nine Cents");
-        //}
+        [Test]
+        public void TestConvertLargeNumbers()
+        {
+            // Test regular number
+            Assert.AreEqual(currency.Convert(32760431.29M),
+                "Thirty Two Million Seven Hundred Sixty Thousand Four Hundred Thirty One Dollars and Twenty Nine Cents");
+        }
 
         [Test]
         public void TestConvertNoTyNumbers()
         {
             // Test regular number
             Assert.AreEqual(currency.Convert(4515.12M), "Four Thousand Five Hundred Fifteen Dollars and Twelve Cents");
+        }
+
+        [Test]
+        public void TestConvertSmallNumbers()
+        {
+            Assert.AreEqual(currency.Convert(123.45M), "One Hundred Twenty Three Dollars and Forty Five Cents");
         }
 
         [Test]
