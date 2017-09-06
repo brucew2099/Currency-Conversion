@@ -1,1 +1,0 @@
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\bin\Debug\Com.Alankwok.Projects.CurrencyUtilities.exe.config

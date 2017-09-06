@@ -1,6 +1,0 @@
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\bin\Debug\Com.Alankwok.Projects.CurrencyUtilities.exe.config
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\bin\Debug\Com.Alankwok.Projects.CurrencyUtilities.exe
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\bin\Debug\Com.Alankwok.Projects.CurrencyUtilities.pdb
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\obj\Debug\Com.Alankwok.Projects.Currency.csprojResolveAssemblyReference.cache
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\obj\Debug\Com.Alankwok.Projects.CurrencyUtilities.exe
-\\mac\home\Documents\Visual Studio 2015\Projects\AlanCodingKata\Com.Alankwok.Projects.CurrencyUtilities\obj\Debug\Com.Alankwok.Projects.CurrencyUtilities.pdb
