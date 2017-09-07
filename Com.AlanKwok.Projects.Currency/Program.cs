@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Com.AlanKwok.Projects.Currency.Classes;
 
 namespace Com.AlanKwok.Projects.Currency
@@ -11,15 +7,26 @@ namespace Com.AlanKwok.Projects.Currency
     {
         public static void Main()
         {
-            CurrencyOperations currency = new CurrencyOperations();
+            var isLoop = true;
 
-            Console.WriteLine("Please enter a decimal number");
+            do
+            {
+                var currency = new CurrencyOperations();
 
-            var inputNumber = Console.ReadLine();
+                Console.WriteLine("Please enter a decimal number");
 
-            Console.WriteLine(currency.Convert(decimal.Parse(inputNumber)));
+                var inputNumber = Console.ReadLine();
 
-            Console.ReadLine();
+                if (inputNumber == null || inputNumber.Trim() == string.Empty) continue;
+
+                Console.WriteLine(currency.Convert(decimal.Parse(inputNumber)));
+
+                Console.WriteLine("Do you want to enter another decimal number? (Y / N)");
+
+                var inputResponse = Console.ReadLine();
+
+                isLoop = inputResponse != null && string.Equals(inputResponse, "Y", StringComparison.OrdinalIgnoreCase);
+            } while (isLoop);
         }
     }
 }

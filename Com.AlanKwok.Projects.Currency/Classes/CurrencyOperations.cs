@@ -1,32 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Com.AlanKwok.Projects.Currency.Classes
 {
     public class CurrencyOperations
     {
-        private string[] zerosAndOnesArray = null;
-        private string[] tysArray = null;
-        private string[] unitsArray = null;
-
-        public CurrencyOperations()
-        {
-        }
+        private string[] _zerosAndOnesArray;
+        private string[] _tysArray;
+        private string[] _unitsArray;
 
         private void Init()
         {
-            zerosAndOnesArray = new string[]
+            _zerosAndOnesArray = new[]
             {
                 "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
                 "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
             };
 
-            tysArray = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty" };
-            unitsArray = new string[] { "", "Thousand", "Million", "Billion" };
+            _tysArray = new[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty" };
+
+            _unitsArray = new[] { "", "Thousand", "Million", "Billion" };
         }
 
         public string Convert(decimal numbers)
@@ -36,7 +29,7 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                 return "Zero Dollars and Zero Cents";
             }
 
-            var currencyNumbers = numbers.ToString("0.##");
+            var currencyNumbers = (numbers.ToString().IndexOf(".") > -1) ? numbers.ToString("0.##") : numbers.ToString("0.00");
             var beforeDecimal = currencyNumbers.Substring(0, currencyNumbers.IndexOf("."));
             var afterDecimal = currencyNumbers.Substring(currencyNumbers.IndexOf(".") + 1);
 
@@ -50,9 +43,8 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             var wordAmount = string.Empty;
             var remains = Int32.Parse(beforeDecimal);
 
-            var numberOfThousands = (int) beforeDecimal.Length / 4;
-            var numberOfBelowThousands = beforeDecimal.Length % 4 == 0 ? (int) beforeDecimal.Length % 3 : (int)beforeDecimal.Length % 4;
-
+            var numberOfThousands = beforeDecimal.Length / 4;
+            var numberOfBelowThousands = numberOfThousands == 0 ? beforeDecimal.Length % 4 : (Int32.Parse(beforeDecimal) / (1000 * numberOfThousands)).ToString().Length;
 
             // Take care of the digits before any thousand counts
             if (numberOfBelowThousands > 0)
@@ -73,18 +65,23 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                     Result result = ProcessSubThousands(remains, numberOfThousands, i, wordAmount);
                     wordAmount = result.WordAmount;
                     remains = result.Remains;
+                    if (remains == 0)
+                    {
+                        wordAmount += " " + _unitsArray[i];
+                        break;
+                    }
                 }
 
                 numberOfThousands--;
 
                 if (numberOfThousands >= 0)
                 {
-                    wordAmount += " " + unitsArray[numberOfThousands];
+                    wordAmount += " " + _unitsArray[numberOfThousands];
                 }
 
-            };
+            }
 
-            wordAmount = wordAmount.Trim() != string.Empty ? wordAmount += " Dollars and " : String.Empty;
+            wordAmount = wordAmount.Trim() != string.Empty ? wordAmount += " Dollars and " : string.Empty;
 
             wordAmount += ProcessAfterDecimal(afterDecimal);
 
@@ -97,12 +94,6 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             return Convert(decimalNumbers);
         }
 
-        public string Convert(double numbers)
-        {
-            var decimalNumbers = decimal.Parse(numbers.ToString());
-            return Convert(decimalNumbers);
-        }
-
         public decimal Convert(string words)
         {
             throw new NotImplementedException();
@@ -110,27 +101,35 @@ namespace Com.AlanKwok.Projects.Currency.Classes
 
         public string ProcessAfterDecimal(string afterDecimal)
         {
+            if (afterDecimal.Length == 1)
+            {
+                afterDecimal = afterDecimal.PadRight(2, '0');
+            }
+
             var wordTemp = string.Empty;
             var quotient = Int32.Parse(afterDecimal) / 10;
 
-            if (quotient > 0)
+            if (quotient == 1)
             {
-                if (quotient > 1)
-                {
-                    wordTemp += tysArray[quotient - 2] + " ";
-                    wordTemp += zerosAndOnesArray[Int32.Parse(afterDecimal) % 10] + " Cents";
-                }
-                else
-                {
-                    wordTemp += zerosAndOnesArray[Int32.Parse(afterDecimal) % 100] + " Cents";
-                }
+                wordTemp += _zerosAndOnesArray[Int32.Parse(afterDecimal) % 100] + " Cents";
+            }
+            else if (quotient == 0)
+            {
+                wordTemp += _zerosAndOnesArray[Int32.Parse(afterDecimal)] + " Cents";
             }
             else
             {
-                wordTemp += zerosAndOnesArray[Int32.Parse(afterDecimal)] + " Cents";
+                wordTemp += _tysArray[quotient - 2] + " ";
+
+                if (Int32.Parse(afterDecimal) % 10 > 0 || Int32.Parse(afterDecimal) == 0)
+                {
+                    wordTemp += _zerosAndOnesArray[Int32.Parse(afterDecimal) % 10];
+                }
+
+                wordTemp += " Cents";
             }
 
-            return wordTemp;
+            return Regex.Replace(wordTemp, @"\s+", " ").Trim();
         }
 
         public Result ProcessSubThousands(int remains, int numberOfThousands, int level, string wordAmount)
@@ -139,62 +138,35 @@ namespace Com.AlanKwok.Projects.Currency.Classes
 
             var isEndOfNumber = true;
 
-            if (value > 0)
+            if (value > 0 && level == 1)
             {
-                switch (level)
+                wordAmount += (wordAmount.Trim() == string.Empty) ? " " + _zerosAndOnesArray[value] + " " + _unitsArray[numberOfThousands] + " " : string.Empty;
+            }
+            else if(value > 0 && level == 2)
+            {
+                wordAmount += " " + _zerosAndOnesArray[value] + " Hundred";
+            }
+            else if(value > 1 && level == 3)
+            {
+                wordAmount += " " + _tysArray[value - 2] + " ";
+
+                if (Int32.Parse(remains.ToString()[1].ToString()) > 0)
                 {
-                    case 1:
-                    {
-                        if (wordAmount.Trim() == string.Empty)
-                        {
-                            wordAmount += " "  + zerosAndOnesArray[value] + " " + unitsArray[numberOfThousands] + " ";
-                        }
-                        
-                        break;
-                    }
-                    case 2:
-                    {
-                        wordAmount += " " + zerosAndOnesArray[value] + " Hundred";
-                        break;
-                    }
-                    case 3:
-                    {
-                        if (value > 1)
-                        {
-                            wordAmount += " " + tysArray[value - 2] + " ";
-                            if (Int32.Parse(remains.ToString()[1].ToString()) > 0)
-                            {
-                                wordAmount += " " + zerosAndOnesArray[Int32.Parse(remains.ToString()[1].ToString())] + " ";
-                                wordAmount += unitsArray[numberOfThousands - 1] + " ";
-                            }
+                    wordAmount += " " + _zerosAndOnesArray[Int32.Parse(remains.ToString()[1].ToString())] + " ";
+                    wordAmount += _unitsArray[numberOfThousands - 1] + " ";
+                }
 
-                            if (remains.ToString().Length > 2)
-                            {
-                                isEndOfNumber = false;
-                            }
-                        }
-                        else
-                        {
-                            wordAmount += " " + zerosAndOnesArray[remains % 10 + 10];
-                        }
-
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
+                if (remains.ToString().Length > 2)
+                {
+                    isEndOfNumber = false;
                 }
             }
+            else if(value == 1 && level == 3)
+            {
+                wordAmount += " " + _zerosAndOnesArray[remains % 10 + 10];
+            }
 
-            if (isEndOfNumber)
-            {
-                remains = (int)(remains % Math.Pow(10, 3 * numberOfThousands + 1 - level));
-            }
-            else
-            {
-                remains = (int)(remains % Math.Pow(10, 3 * numberOfThousands - level));
-            }
+            remains = isEndOfNumber ? (int)(remains % Math.Pow(10, 3 * numberOfThousands + 1 - level)) : (int)(remains % Math.Pow(10, 3 * numberOfThousands - level));
 
             return new Result()
             {
