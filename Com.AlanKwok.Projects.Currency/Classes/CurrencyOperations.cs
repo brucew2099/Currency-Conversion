@@ -109,15 +109,15 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             var wordTemp = string.Empty;
             var quotient = Int32.Parse(afterDecimal) / 10;
 
-            if (quotient == 1)
+            if (quotient == 1)          // Oneth place
             {
                 wordTemp += _zerosAndOnesArray[Int32.Parse(afterDecimal) % 100] + " Cents";
             }
-            else if (quotient == 0)
+            else if (quotient == 0)     // Tenth place
             {
                 wordTemp += _zerosAndOnesArray[Int32.Parse(afterDecimal)] + " Cents";
             }
-            else
+            else                        // Hundredth place
             {
                 wordTemp += _tysArray[quotient - 2] + " ";
 
@@ -142,11 +142,11 @@ namespace Com.AlanKwok.Projects.Currency.Classes
             {
                 wordAmount += (wordAmount.Trim() == string.Empty) ? " " + _zerosAndOnesArray[value] + " " + _unitsArray[numberOfThousands] + " " : string.Empty;
             }
-            else if(value > 0 && level == 2)
+            else if (value > 0 && level == 2)
             {
                 wordAmount += " " + _zerosAndOnesArray[value] + " Hundred";
             }
-            else if(value > 1 && level == 3)
+            else if (value > 1 && level == 3)
             {
                 wordAmount += " " + _tysArray[value - 2] + " ";
 
@@ -156,12 +156,9 @@ namespace Com.AlanKwok.Projects.Currency.Classes
                     wordAmount += _unitsArray[numberOfThousands - 1] + " ";
                 }
 
-                if (remains.ToString().Length > 2)
-                {
-                    isEndOfNumber = false;
-                }
+                isEndOfNumber = remains.ToString().Length <= 2;
             }
-            else if(value == 1 && level == 3)
+            else if (value == 1 && level == 3)
             {
                 wordAmount += " " + _zerosAndOnesArray[remains % 10 + 10];
             }
